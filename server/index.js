@@ -30,7 +30,7 @@ app.use(bodyParser.json({ limit: "100mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://momento-client.vercel.app",
+  "https://momento-opal.vercel.app/",
 ];
 const corsOptions = {
   origin: function (origin, callback) {
