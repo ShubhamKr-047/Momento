@@ -36,7 +36,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const getPosts = async () => {
     setIsLoading(true);
     const response = await fetch(
-      `http://localhost:3001/posts?page=1&limit=10`,
+      `${process.env.REACT_APP_SERVER_URL}/posts?page=1&limit=10`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -51,7 +51,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const getUserPosts = async () => {
     setIsLoading(true);
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts?page=1&limit=10`,
+      `${process.env.REACT_APP_SERVER_URL}/posts/${userId}/posts?page=1&limit=10`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -68,8 +68,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
     setIsFetchingMore(true);
     const url = isProfile
-      ? `http://localhost:3001/posts/${userId}/posts?page=${page}&limit=10`
-      : `http://localhost:3001/posts?page=${page}&limit=10`;
+      ? `${process.env.REACT_APP_SERVER_URL}/posts/${userId}/posts?page=${page}&limit=10`
+      : `${process.env.REACT_APP_SERVER_URL}/posts?page=${page}&limit=10`;
 
     const response = await fetch(url, {
       method: "GET",

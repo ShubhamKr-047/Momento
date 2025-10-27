@@ -73,7 +73,7 @@ const Navbar = () => {
     setIsSearching(true);
     try {
       const response = await fetch(
-        `http://localhost:3001/users/search?query=${encodeURIComponent(query)}`,
+        `${process.env.REACT_APP_SERVER_URL}/users/search?query=${encodeURIComponent(query)}`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -126,7 +126,7 @@ const Navbar = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/users/${user._id}`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${user._id}`,
         {
           method: "DELETE",
           headers: {
