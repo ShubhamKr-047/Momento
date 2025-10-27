@@ -14,8 +14,6 @@ import postRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-import User from "./models/User.js";
-import Post from "./models/Post.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -30,7 +28,7 @@ app.use(bodyParser.json({ limit: "100mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://momento-opal.vercel.app/",
+  "https://momento-opal.vercel.app",
 ];
 const corsOptions = {
   origin: function (origin, callback) {
