@@ -13,7 +13,6 @@ export const register = async (req, res) => {
       lastName,
       email,
       password,
-      friends,
       location,
       occupation,
     } = req.body;
@@ -39,7 +38,7 @@ export const register = async (req, res) => {
       email,
       password: passwordHash,
       picturePath: pictureBase64,
-      friends,
+      friends: [], // Always initialize as empty array for new users
       location,
       occupation,
       viewedProfile: 0,
@@ -47,7 +46,11 @@ export const register = async (req, res) => {
     });
     const savedUser = await newUser.save();
     console.log("User registered successfully:", savedUser.email);
-    res.status(201).json(savedUser);
+    
+    // Remove password before sending response
+    const userResponse = savedUser.toObject();
+    delete userResponse.password;
+    res.status(201).json(userResponse);
   } catch (err) {
     console.error("Registration error:", err.message);
     res.status(500).json({ error: err.message });
@@ -65,8 +68,12 @@ export const login = async (req, res) => {
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    delete user.password;
-    res.status(200).json({ token, user });
+    
+    // Convert to plain object and remove password
+    const userResponse = user.toObject();
+    delete userResponse.password;
+    
+    res.status(200).json({ token, user: userResponse });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
